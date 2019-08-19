@@ -1,7 +1,13 @@
-import { GET_FLASHCARDS } from "../actions/types";
+import {
+  GET_FLASHCARDS,
+  GET_FLASHCARDS_BY_CATEGORY,
+  GET_CATEGORIES
+} from "../actions/types";
 
 const initialState = {
-  flashcards: []
+  flashcards: [],
+  flashcardsByCategory: [],
+  categories: []
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +16,18 @@ export default function(state = initialState, action) {
       return {
         ...state,
         flashcards: action.payload
+      };
+
+    case GET_FLASHCARDS_BY_CATEGORY:
+      return {
+        ...state,
+        flashcardsByCategory: action.payload
+      };
+
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
       };
 
     default:

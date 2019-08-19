@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import Categories from "../Categories/Categories";
 
 class HomePage extends Component {
   render() {
     return (
       <div>
-        <p>Strona domowa</p>
+        <Categories />
       </div>
     );
   }

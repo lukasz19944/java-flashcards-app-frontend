@@ -7,6 +7,7 @@ import Header from "./components/Layout/Header";
 import HomePage from "./components/Layout/HomePage";
 import store from "./store";
 import AllFlashcards from "./components/Flashcards/AllFlashcards";
+import FlashcardsByCategory from "./components/Flashcards/FlashcardsByCategory";
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
           <Header />
           <Route exact path="/" component={HomePage} />
           <Route exact path="/all" component={AllFlashcards} />
+          <Route
+            exact
+            path="/category/:category"
+            component={FlashcardsByCategory}
+          />
         </div>
       </BrowserRouter>
     </Provider>

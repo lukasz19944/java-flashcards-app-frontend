@@ -1,0 +1,1 @@
+export const GET_FLASHCARDS = "GET_FLASHCARDS";

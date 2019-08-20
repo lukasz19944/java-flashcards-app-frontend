@@ -12,7 +12,8 @@ class FlashcardsByCategory extends Component {
   state = {
     currentFlashcard: {},
     currentFlashcardIndex: 0,
-    started: false
+    started: false,
+    finished: false
   };
 
   redirectToHome() {
@@ -27,7 +28,9 @@ class FlashcardsByCategory extends Component {
         started: true
       });
     } else {
-      this.redirectToHome();
+      this.setState({
+        finished: true
+      });
     }
   }
 
@@ -37,40 +40,79 @@ class FlashcardsByCategory extends Component {
 
     return (
       <React.Fragment>
-        {this.state.started ? (
-          <div>
-            <Flashcard flashcard={this.state.currentFlashcard}>
-              <div className="btn-group" style={{ width: "100%" }}>
+        {!this.state.finished ? (
+          this.state.started ? (
+            <div>
+              <Flashcard flashcard={this.state.currentFlashcard}>
+                <div className="btn-group" style={{ width: "100%" }}>
+                  <button
+                    className="btn btn-danger btn-block"
+                    onClick={this.changeFlashcard.bind(
+                      this,
+                      flashcardsByCategory
+                    )}
+                  >
+                    DALEJ
+                  </button>
+                </div>
+              </Flashcard>
+            </div>
+          ) : (
+            <div>
+              <div className="card mb-1 bg-light w-50 mx-auto">
+                <div className="card-header text-light bg-success text-uppercase">
+                  <strong>{category}</strong>
+                </div>
+                <div className="card-body bg-light">
+                  <h5 className="card-title">
+                    Liczba pytań rekrutacyjnych z zakresu {category} to:
+                  </h5>
+                </div>
                 <button
-                  className="btn btn-danger btn-block"
+                  className="btn btn-danger"
                   onClick={this.changeFlashcard.bind(
                     this,
                     flashcardsByCategory
                   )}
                 >
-                  DALEJ
+                  START
                 </button>
               </div>
-            </Flashcard>
-          </div>
-        ) : (
-          <div>
-            <div className="card mb-1 bg-light w-50 mx-auto">
-              <div className="card-header text-light bg-success text-uppercase">
-                <strong>{category}</strong>
-              </div>
-              <div className="card-body bg-light">
-                <h5 className="card-title">
-                  Liczba pytań rekrutacyjnych z zakresu {category} to:
-                </h5>
-              </div>
-              <button
-                className="btn btn-danger"
-                onClick={this.changeFlashcard.bind(this, flashcardsByCategory)}
-              >
-                START
-              </button>
             </div>
+          )
+        ) : (
+          <div
+            className="card mb-1 bg-light w-50 mx-auto"
+            style={{ height: "500px" }}
+          >
+            <div className="card-header text-light bg-success text-uppercase">
+              {category}
+            </div>
+            <div className="card-body bg-light">
+              <h5 className="card-title">Nie ma już więcej pytań</h5>
+              <table className="table mt-5">
+                <tbody>
+                  <tr>
+                    <td>Wiem:</td>
+                    <td>999</td>
+                  </tr>
+                  <tr>
+                    <td>Nie wiem:</td>
+                    <td>999</td>
+                  </tr>
+                  <tr>
+                    <td />
+                    <td>100%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button
+              className="btn btn-danger"
+              onClick={this.redirectToHome.bind(this)}
+            >
+              WRÓĆ DO STRONY GŁÓWNEJ
+            </button>
           </div>
         )}
       </React.Fragment>

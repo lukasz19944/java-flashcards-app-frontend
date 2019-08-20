@@ -4,7 +4,9 @@ import {
   GET_FLASHCARDS_BY_CATEGORY,
   GET_CATEGORIES,
   GET_COUNT_ALL_FLASHCARDS,
-  GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE
+  GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
+  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
+  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE
 } from "./types";
 
 export const getFlashcards = () => async dispatch => {
@@ -55,6 +57,26 @@ export const countAllFlashcardsByKnowledge = () => async dispatch => {
   );
   dispatch({
     type: GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
+    payload: res.data
+  });
+};
+
+export const countAllFlashcardsByCategory = () => async dispatch => {
+  const res = await axios.get(
+    "http://localhost:8090/api/flashcard/count/category/"
+  );
+  dispatch({
+    type: GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
+    payload: res.data
+  });
+};
+
+export const countAllFlashcardsByCategoryAndKnowledge = () => async dispatch => {
+  const res = await axios.get(
+    "http://localhost:8090/api/flashcard/count/category-level/"
+  );
+  dispatch({
+    type: GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE,
     payload: res.data
   });
 };

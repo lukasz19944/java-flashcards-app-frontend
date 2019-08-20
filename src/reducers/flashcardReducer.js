@@ -3,7 +3,9 @@ import {
   GET_FLASHCARDS_BY_CATEGORY,
   GET_CATEGORIES,
   GET_COUNT_ALL_FLASHCARDS,
-  GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE
+  GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
+  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
+  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE
 } from "../actions/types";
 
 const initialState = {
@@ -11,7 +13,9 @@ const initialState = {
   flashcardsByCategory: [],
   categories: [],
   countAllFlashcards: 0,
-  countAllFlashcardsByKnowledge: 0
+  countAllFlashcardsByKnowledge: 0,
+  countAllFlashcardsByCategory: {},
+  countAllFlashcardsByCategoryAndKnowledge: {}
 };
 
 export default function(state = initialState, action) {
@@ -39,10 +43,23 @@ export default function(state = initialState, action) {
         ...state,
         countAllFlashcards: action.payload
       };
+
     case GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE:
       return {
         ...state,
         countAllFlashcardsByKnowledge: action.payload
+      };
+
+    case GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY:
+      return {
+        ...state,
+        countAllFlashcardsByCategory: action.payload
+      };
+
+    case GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE:
+      return {
+        ...state,
+        countAllFlashcardsByCategoryAndKnowledge: action.payload
       };
 
     default:

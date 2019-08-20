@@ -3,21 +3,28 @@ import { connect } from "react-redux";
 import {
   getCategories,
   countAllFlashcards,
-  countAllFlashcardsByKnowledge
+  countAllFlashcardsByKnowledge,
+  countAllFlashcardsByCategory,
+  countAllFlashcardsByCategoryAndKnowledge
 } from "../../actions/flashcardActions";
 import Category from "./Category";
-import ProgressBar from "../Progress/ProgressBar";
+import ProgressBarAll from "../Progress/ProgressBarAll";
+import ProgressBarCategory from "../Progress/ProgressBarCategory";
 
 class Categories extends Component {
   componentDidMount() {
     this.props.getCategories();
     this.props.countAllFlashcards();
     this.props.countAllFlashcardsByKnowledge();
+    this.props.countAllFlashcardsByCategory();
+    this.props.countAllFlashcardsByCategoryAndKnowledge();
   }
   render() {
     const { categories } = this.props.flashcard;
     const { countAllFlashcards } = this.props.flashcard;
     const { countAllFlashcardsByKnowledge } = this.props.flashcard;
+    const { countAllFlashcardsByCategory } = this.props.flashcard;
+    const { countAllFlashcardsByCategoryAndKnowledge } = this.props.flashcard;
 
     let firstCol = [];
     let secondCol = [];
@@ -38,11 +45,24 @@ class Categories extends Component {
                 <h3>POSTĘP</h3>
               </div>
               <div className="card-body bg-light">
-                <ProgressBar
+                <ProgressBarAll
                   category={"Wszystkie"}
                   countAllFlashcards={countAllFlashcards}
                   countAllFlashcardsByKnowledge={countAllFlashcardsByKnowledge}
                 />
+
+                <hr />
+
+                {Object.keys(countAllFlashcardsByCategory).map(category => (
+                  <ProgressBarCategory
+                    key={category}
+                    category={category}
+                    countAllFlashcardsByCategory={countAllFlashcardsByCategory}
+                    countAllFlashcardsByCategoryAndKnowledge={
+                      countAllFlashcardsByCategoryAndKnowledge
+                    }
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -78,6 +98,8 @@ export default connect(
   {
     getCategories,
     countAllFlashcards,
-    countAllFlashcardsByKnowledge
+    countAllFlashcardsByKnowledge,
+    countAllFlashcardsByCategory,
+    countAllFlashcardsByCategoryAndKnowledge
   }
 )(Categories);

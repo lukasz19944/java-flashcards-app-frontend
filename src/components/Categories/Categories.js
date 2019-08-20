@@ -1,14 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getCategories } from "../../actions/flashcardActions";
+import {
+  getCategories,
+  countAllFlashcards,
+  countAllFlashcardsByKnowledge
+} from "../../actions/flashcardActions";
 import Category from "./Category";
+import ProgressBar from "../Progress/ProgressBar";
 
 class Categories extends Component {
   componentDidMount() {
     this.props.getCategories();
+    this.props.countAllFlashcards();
+    this.props.countAllFlashcardsByKnowledge();
   }
   render() {
     const { categories } = this.props.flashcard;
+    const { countAllFlashcards } = this.props.flashcard;
+    const { countAllFlashcardsByKnowledge } = this.props.flashcard;
 
     let firstCol = [];
     let secondCol = [];
@@ -22,6 +31,22 @@ class Categories extends Component {
 
     return (
       <div className="container">
+        <div className="row">
+          <div className="col">
+            <div className="card mb-1 bg-light w-75 mx-auto">
+              <div className="card-header text-black bg-warning text-uppercase">
+                <h3>POSTĘP</h3>
+              </div>
+              <div className="card-body bg-light">
+                <ProgressBar
+                  category={"Wszystkie"}
+                  countAllFlashcards={countAllFlashcards}
+                  countAllFlashcardsByKnowledge={countAllFlashcardsByKnowledge}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="row">
           <div className="col">
             {firstCol.map(category => (
@@ -51,6 +76,8 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getCategories
+    getCategories,
+    countAllFlashcards,
+    countAllFlashcardsByKnowledge
   }
 )(Categories);

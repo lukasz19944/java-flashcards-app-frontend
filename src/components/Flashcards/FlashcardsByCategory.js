@@ -58,7 +58,7 @@ class FlashcardsByCategory extends Component {
       }
 
       this.setState({
-        correctAnswersCounter: this.state.knowClickedCounter + 1
+        correctAnswersCounter: this.state.correctAnswersCounter + 1
       });
     } else {
       if (knowledgeLevel > 0) {
@@ -66,7 +66,7 @@ class FlashcardsByCategory extends Component {
       }
 
       this.setState({
-        incorrectAnswersCounter: this.state.notKnowClickedCounter + 1
+        incorrectAnswersCounter: this.state.incorrectAnswersCounter + 1
       });
     }
 

@@ -1,0 +1,32 @@
+import React, { Component } from "react";
+
+class Flashcard extends Component {
+  render() {
+    const { flashcard } = this.props;
+
+    return (
+      <div
+        className="card mb-1 bg-light w-50 mx-auto"
+        style={{ height: "500px" }}
+      >
+        <div className="card-header text-light bg-success text-uppercase">
+          <strong>{flashcard.category}</strong>
+        </div>
+
+        <div className="card-body bg-light">
+          <div>
+            <h5 className="card-title">{flashcard.question}</h5>
+          </div>
+
+          <hr />
+          <div className="card-text text-left mx-3">
+            <pre>{flashcard.answer}</pre>
+          </div>
+        </div>
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
+export default Flashcard;

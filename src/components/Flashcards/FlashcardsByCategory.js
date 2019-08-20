@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getFlashcardsByCategory } from "../../actions/flashcardActions";
+import Flashcard from "./Flashcard";
 
 class FlashcardsByCategory extends Component {
   componentDidMount() {
@@ -8,45 +9,71 @@ class FlashcardsByCategory extends Component {
     this.props.getFlashcardsByCategory(category);
   }
 
+  state = {
+    currentFlashcard: {},
+    currentFlashcardIndex: 0,
+    started: false
+  };
+
+  redirectToHome() {
+    this.props.history.push("/");
+  }
+
+  changeFlashcard(flashcards) {
+    if (this.state.currentFlashcardIndex < flashcards.length) {
+      this.setState({
+        currentFlashcard: flashcards[this.state.currentFlashcardIndex],
+        currentFlashcardIndex: this.state.currentFlashcardIndex + 1,
+        started: true
+      });
+    } else {
+      this.redirectToHome();
+    }
+  }
+
   render() {
     const { flashcardsByCategory } = this.props.flashcard;
+    const { category } = this.props.match.params;
 
     return (
-      <div className="flashcards">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4 text-center">Wszystkie pytania</h1>
-              <br />
-
-              <hr />
-
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Pytanie</th>
-                    <th>Odpowiedź</th>
-                    <th>Kategoria</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {flashcardsByCategory.map(flashcard => (
-                    <tr key={flashcard.id}>
-                      <td className="text-left align-middle">
-                        {flashcard.question}
-                      </td>
-                      <td className="text-left align-middle">
-                        {flashcard.answer}
-                      </td>
-                      <td className="align-middle">{flashcard.category}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+      <React.Fragment>
+        {this.state.started ? (
+          <div>
+            <Flashcard flashcard={this.state.currentFlashcard}>
+              <div className="btn-group" style={{ width: "100%" }}>
+                <button
+                  className="btn btn-danger btn-block"
+                  onClick={this.changeFlashcard.bind(
+                    this,
+                    flashcardsByCategory
+                  )}
+                >
+                  DALEJ
+                </button>
+              </div>
+            </Flashcard>
+          </div>
+        ) : (
+          <div>
+            <div className="card mb-1 bg-light w-50 mx-auto">
+              <div className="card-header text-light bg-success text-uppercase">
+                <strong>{category}</strong>
+              </div>
+              <div className="card-body bg-light">
+                <h5 className="card-title">
+                  Liczba pytań rekrutacyjnych z zakresu {category} to:
+                </h5>
+              </div>
+              <button
+                className="btn btn-danger"
+                onClick={this.changeFlashcard.bind(this, flashcardsByCategory)}
+              >
+                START
+              </button>
             </div>
           </div>
-        </div>
-      </div>
+        )}
+      </React.Fragment>
     );
   }
 }

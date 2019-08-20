@@ -14,6 +14,7 @@ class FlashcardsByCategory extends Component {
     currentFlashcardIndex: 0,
     started: false,
     finished: false,
+    answerShowed: false,
     answered: false
   };
 
@@ -27,7 +28,8 @@ class FlashcardsByCategory extends Component {
         currentFlashcard: flashcards[this.state.currentFlashcardIndex],
         currentFlashcardIndex: this.state.currentFlashcardIndex + 1,
         started: true,
-        answerShowed: false
+        answerShowed: false,
+        answered: false
       });
     } else {
       this.setState({
@@ -39,6 +41,12 @@ class FlashcardsByCategory extends Component {
   showAnswer() {
     this.setState({
       answerShowed: true
+    });
+  }
+
+  handleAnswer() {
+    this.setState({
+      answered: true
     });
   }
 
@@ -56,6 +64,25 @@ class FlashcardsByCategory extends Component {
     );
 
     if (this.state.answerShowed) {
+      buttons = (
+        <div className="w-100">
+          <button
+            className="btn btn-danger w-50"
+            onClick={this.handleAnswer.bind(this)}
+          >
+            NIE WIEM
+          </button>
+          <button
+            className="btn btn-danger w-50"
+            onClick={this.handleAnswer.bind(this)}
+          >
+            WIEM
+          </button>
+        </div>
+      );
+    }
+
+    if (this.state.answered) {
       buttons = (
         <button
           className="btn btn-danger btn-block"

@@ -4,6 +4,12 @@ class Flashcard extends Component {
   render() {
     const { flashcard } = this.props;
 
+    let answer = null;
+
+    if (this.props.answerShowed) {
+      answer = <pre>{flashcard.answer}</pre>;
+    }
+
     return (
       <div
         className="card mb-1 bg-light w-50 mx-auto"
@@ -20,7 +26,7 @@ class Flashcard extends Component {
 
           <hr />
           <div className="card-text text-left mx-3">
-            <pre>{flashcard.answer}</pre>
+            <pre>{answer}</pre>
           </div>
         </div>
         {this.props.children}

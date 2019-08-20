@@ -13,7 +13,8 @@ class FlashcardsByCategory extends Component {
     currentFlashcard: {},
     currentFlashcardIndex: 0,
     started: false,
-    finished: false
+    finished: false,
+    answered: false
   };
 
   redirectToHome() {
@@ -25,7 +26,8 @@ class FlashcardsByCategory extends Component {
       this.setState({
         currentFlashcard: flashcards[this.state.currentFlashcardIndex],
         currentFlashcardIndex: this.state.currentFlashcardIndex + 1,
-        started: true
+        started: true,
+        answerShowed: false
       });
     } else {
       this.setState({
@@ -34,26 +36,47 @@ class FlashcardsByCategory extends Component {
     }
   }
 
+  showAnswer() {
+    this.setState({
+      answerShowed: true
+    });
+  }
+
   render() {
     const { flashcardsByCategory } = this.props.flashcard;
     const { category } = this.props.match.params;
+
+    let buttons = (
+      <button
+        className="btn btn-danger btn-block"
+        onClick={this.showAnswer.bind(this)}
+      >
+        POKAŻ ODPOWIEDŹ
+      </button>
+    );
+
+    if (this.state.answerShowed) {
+      buttons = (
+        <button
+          className="btn btn-danger btn-block"
+          onClick={this.changeFlashcard.bind(this, flashcardsByCategory)}
+        >
+          DALEJ
+        </button>
+      );
+    }
 
     return (
       <React.Fragment>
         {!this.state.finished ? (
           this.state.started ? (
             <div>
-              <Flashcard flashcard={this.state.currentFlashcard}>
+              <Flashcard
+                flashcard={this.state.currentFlashcard}
+                answerShowed={this.state.answerShowed}
+              >
                 <div className="btn-group" style={{ width: "100%" }}>
-                  <button
-                    className="btn btn-danger btn-block"
-                    onClick={this.changeFlashcard.bind(
-                      this,
-                      flashcardsByCategory
-                    )}
-                  >
-                    DALEJ
-                  </button>
+                  {buttons}
                 </div>
               </Flashcard>
             </div>

@@ -30,3 +30,11 @@ export const getCategories = () => async dispatch => {
     payload: res.data
   });
 };
+
+export const createFlashcard = (flashcard, history) => async dispatch => {
+  try {
+    await axios.post("http://localhost:8090/api/flashcard", flashcard);
+  } catch (error) {
+    console.log("CreateFlashcard error");
+  }
+};

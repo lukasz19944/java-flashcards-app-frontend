@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getFlashcardsByCategory } from "../../actions/flashcardActions";
+import {
+  getFlashcardsByCategory,
+  createFlashcard
+} from "../../actions/flashcardActions";
 import Flashcard from "./Flashcard";
 
 class FlashcardsByCategory extends Component {
@@ -15,7 +18,9 @@ class FlashcardsByCategory extends Component {
     started: false,
     finished: false,
     answerShowed: false,
-    answered: false
+    answered: false,
+    correctAnswersCounter: 0,
+    incorrectAnswersCounter: 0
   };
 
   redirectToHome() {
@@ -44,7 +49,37 @@ class FlashcardsByCategory extends Component {
     });
   }
 
-  handleAnswer() {
+  updateKnowledgeLevel(correctAnswer) {
+    let knowledgeLevel = this.state.currentFlashcard.knowledgeLevel;
+
+    if (correctAnswer) {
+      if (knowledgeLevel < 2) {
+        knowledgeLevel++;
+      }
+
+      this.setState({
+        correctAnswersCounter: this.state.knowClickedCounter + 1
+      });
+    } else {
+      if (knowledgeLevel > 0) {
+        knowledgeLevel--;
+      }
+
+      this.setState({
+        incorrectAnswersCounter: this.state.notKnowClickedCounter + 1
+      });
+    }
+
+    const updatedFlashcard = {
+      id: this.state.currentFlashcard.id,
+      question: this.state.currentFlashcard.question,
+      answer: this.state.currentFlashcard.answer,
+      category: this.state.currentFlashcard.category,
+      knowledgeLevel: knowledgeLevel
+    };
+
+    this.props.createFlashcard(updatedFlashcard);
+
     this.setState({
       answered: true
     });
@@ -68,13 +103,13 @@ class FlashcardsByCategory extends Component {
         <div className="w-100">
           <button
             className="btn btn-danger w-50"
-            onClick={this.handleAnswer.bind(this)}
+            onClick={this.updateKnowledgeLevel.bind(this, false)}
           >
             NIE WIEM
           </button>
           <button
             className="btn btn-danger w-50"
-            onClick={this.handleAnswer.bind(this)}
+            onClick={this.updateKnowledgeLevel.bind(this, true)}
           >
             WIEM
           </button>
@@ -91,6 +126,20 @@ class FlashcardsByCategory extends Component {
           DALEJ
         </button>
       );
+    }
+
+    let result = 0;
+
+    if (
+      this.state.correctAnswersCounter + this.state.incorrectAnswersCounter !==
+      0
+    ) {
+      result = Number(
+        (this.state.correctAnswersCounter /
+          (this.state.correctAnswersCounter +
+            this.state.incorrectAnswersCounter)) *
+          100
+      ).toFixed(0);
     }
 
     return (
@@ -144,15 +193,15 @@ class FlashcardsByCategory extends Component {
                 <tbody>
                   <tr>
                     <td>Wiem:</td>
-                    <td>999</td>
+                    <td>{this.state.correctAnswersCounter}</td>
                   </tr>
                   <tr>
                     <td>Nie wiem:</td>
-                    <td>999</td>
+                    <td>{this.state.incorrectAnswersCounter}</td>
                   </tr>
                   <tr>
                     <td />
-                    <td>100%</td>
+                    <td>{result}%</td>
                   </tr>
                 </tbody>
               </table>
@@ -175,5 +224,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getFlashcardsByCategory }
+  { getFlashcardsByCategory, createFlashcard }
 )(FlashcardsByCategory);

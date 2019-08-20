@@ -80,3 +80,11 @@ export const countAllFlashcardsByCategoryAndKnowledge = () => async dispatch => 
     payload: res.data
   });
 };
+
+export const resetProgress = () => async dispatch => {
+  if (window.confirm("Czy na pewno zresetować postęp?")) {
+    await axios.get("http://localhost:8090/api/flashcard/reset/");
+
+    window.location.reload();
+  }
+};

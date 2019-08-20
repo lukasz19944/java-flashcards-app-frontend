@@ -5,7 +5,8 @@ import {
   countAllFlashcards,
   countAllFlashcardsByKnowledge,
   countAllFlashcardsByCategory,
-  countAllFlashcardsByCategoryAndKnowledge
+  countAllFlashcardsByCategoryAndKnowledge,
+  resetProgress
 } from "../../actions/flashcardActions";
 import Category from "./Category";
 import ProgressBarAll from "../Progress/ProgressBarAll";
@@ -42,7 +43,15 @@ class Categories extends Component {
           <div className="col">
             <div className="card mb-1 bg-light w-75 mx-auto">
               <div className="card-header text-black bg-warning text-uppercase">
-                <h3>POSTĘP</h3>
+                <h3>
+                  POSTĘP
+                  <button
+                    className="btn btn-danger w-25 float-right"
+                    onClick={this.props.resetProgress.bind(this)}
+                  >
+                    Resetuj postęp
+                  </button>
+                </h3>
               </div>
               <div className="card-body bg-light">
                 <ProgressBarAll
@@ -51,7 +60,7 @@ class Categories extends Component {
                   countAllFlashcardsByKnowledge={countAllFlashcardsByKnowledge}
                 />
 
-                <hr />
+                <hr className="m-2" />
 
                 {Object.keys(countAllFlashcardsByCategory).map(category => (
                   <ProgressBarCategory
@@ -100,6 +109,7 @@ export default connect(
     countAllFlashcards,
     countAllFlashcardsByKnowledge,
     countAllFlashcardsByCategory,
-    countAllFlashcardsByCategoryAndKnowledge
+    countAllFlashcardsByCategoryAndKnowledge,
+    resetProgress
   }
 )(Categories);

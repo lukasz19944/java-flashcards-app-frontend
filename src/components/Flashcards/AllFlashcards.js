@@ -5,9 +5,32 @@ import { Link } from "react-router-dom";
 import FlashcardPreview from "../Layout/FlashcardPreview";
 
 class AllFlashcards extends Component {
-  state = {
-    flashcardPreview: ""
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      flashcardPreview: "",
+      flashcards: this.props.flashcard.flashcards,
+      searched: false
+    };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    const currentList = this.props.flashcard.flashcards;
+
+    const newList = currentList.filter(item => {
+      const lc = item.question.toLowerCase();
+      const filter = e.target.value.toLowerCase();
+      return lc.includes(filter);
+    });
+
+    this.setState({
+      flashcards: newList,
+      searched: true
+    });
+  }
 
   componentDidMount() {
     this.props.getFlashcards();
@@ -36,7 +59,11 @@ class AllFlashcards extends Component {
   };
 
   render() {
-    const { flashcards } = this.props.flashcard;
+    let { flashcards } = this.props.flashcard;
+
+    if (this.state.searched) {
+      flashcards = this.state.flashcards;
+    }
 
     return (
       <div className="flashcards">
@@ -45,6 +72,14 @@ class AllFlashcards extends Component {
             <div className="col-md-12">
               <h1 className="display-4 text-center">Wszystkie pytania</h1>
               <br />
+
+              <input
+                type="text"
+                className="form-control form-control-lg"
+                placeholder="Szukaj"
+                name="search"
+                onChange={this.onChange}
+              />
 
               <hr />
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createFlashcard } from "../../actions/flashcardActions";
+import classnames from "classnames";
 
 class AddFlashcard extends Component {
   constructor() {
@@ -10,11 +11,18 @@ class AddFlashcard extends Component {
       question: "",
       answer: "",
       category: "",
-      knowledgeLevel: ""
+      knowledgeLevel: "",
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange(e) {
@@ -35,6 +43,8 @@ class AddFlashcard extends Component {
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
         <div className="flashcard">
@@ -47,32 +57,47 @@ class AddFlashcard extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.question
+                      })}
                       placeholder="Pytanie"
                       name="question"
                       value={this.state.question}
                       onChange={this.onChange}
                     />
+                    {errors.question && (
+                      <div className="invalid-feedback">{errors.question}</div>
+                    )}
                   </div>
                   <div className="form-group">
                     <textarea
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.answer
+                      })}
                       placeholder="Odpowiedź"
                       name="answer"
                       style={{ height: "200px" }}
                       value={this.state.answer}
                       onChange={this.onChange}
                     />
+                    {errors.answer && (
+                      <div className="invalid-feedback">{errors.answer}</div>
+                    )}
                   </div>
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.category
+                      })}
                       placeholder="Kategoria"
                       name="category"
                       value={this.state.category}
                       onChange={this.onChange}
                     />
+                    {errors.category && (
+                      <div className="invalid-feedback">{errors.category}</div>
+                    )}
                   </div>
 
                   <input
@@ -89,7 +114,11 @@ class AddFlashcard extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  errors: state.error
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { createFlashcard }
 )(AddFlashcard);

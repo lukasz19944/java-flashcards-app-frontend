@@ -8,7 +8,8 @@ import {
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE,
   DELETE_FLASHCARD,
-  GET_FLASHCARD
+  GET_FLASHCARD,
+  GET_ERRORS
 } from "./types";
 
 export const getFlashcards = () => async dispatch => {
@@ -44,8 +45,16 @@ export const createFlashcard = (flashcard, history) => async dispatch => {
     if (history) {
       history.push("/");
     }
+
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
   }
 };
 

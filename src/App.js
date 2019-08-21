@@ -8,6 +8,7 @@ import HomePage from "./components/Layout/HomePage";
 import store from "./store";
 import AllFlashcards from "./components/Flashcards/AllFlashcards";
 import FlashcardsByCategory from "./components/Flashcards/FlashcardsByCategory";
+import AddFlashcard from "./components/Flashcards/AddFlashcard";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             path="/category/:category"
             component={FlashcardsByCategory}
           />
+          <Route exact path="/addFlashcard" component={AddFlashcard} />
         </div>
       </BrowserRouter>
     </Provider>

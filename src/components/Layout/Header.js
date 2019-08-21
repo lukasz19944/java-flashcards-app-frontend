@@ -25,6 +25,16 @@ class Header extends Component {
                 </Link>
               </li>
             </ul>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item mr-3" style={{ marginTop: "4.5px" }}>
+                <Link
+                  to="/addFlashcard"
+                  className="btn btn-sm btn-outline-dark font-weight-bold"
+                >
+                  DODAJ
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

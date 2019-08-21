@@ -7,7 +7,8 @@ import {
   GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE,
-  DELETE_FLASHCARD
+  DELETE_FLASHCARD,
+  GET_FLASHCARD
 } from "./types";
 
 export const getFlashcards = () => async dispatch => {
@@ -101,5 +102,17 @@ export const deleteFlashcard = id => async dispatch => {
       type: DELETE_FLASHCARD,
       payload: id
     });
+  }
+};
+
+export const getFlashcard = (id, history) => async dispatch => {
+  try {
+    const res = await axios.get(`http://localhost:8090/api/flashcard/${id}`);
+    dispatch({
+      type: GET_FLASHCARD,
+      payload: res.data
+    });
+  } catch (error) {
+    history.push("/");
   }
 };

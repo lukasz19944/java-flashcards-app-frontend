@@ -42,7 +42,7 @@ class AllFlashcards extends Component {
                       </td>
                       <td className="align-middle">{flashcard.category}</td>
                       <td className="align-middle">
-                        <Link to="#">
+                        <Link to={`/updateFlashcard/${flashcard.id}`}>
                           <svg
                             id="i-edit"
                             xmlns="http://www.w3.org/2000/svg"

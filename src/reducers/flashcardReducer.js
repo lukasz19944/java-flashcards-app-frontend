@@ -6,7 +6,8 @@ import {
   GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE,
-  DELETE_FLASHCARD
+  DELETE_FLASHCARD,
+  GET_FLASHCARD
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   countAllFlashcards: 0,
   countAllFlashcardsByKnowledge: 0,
   countAllFlashcardsByCategory: {},
-  countAllFlashcardsByCategoryAndKnowledge: {}
+  countAllFlashcardsByCategoryAndKnowledge: {},
+  flashcard: {}
 };
 
 export default function(state = initialState, action) {
@@ -69,6 +71,12 @@ export default function(state = initialState, action) {
         flashcards: state.flashcards.filter(
           flashcard => flashcard.id !== action.payload
         )
+      };
+
+    case GET_FLASHCARD:
+      return {
+        ...state,
+        flashcard: action.payload
       };
 
     default:

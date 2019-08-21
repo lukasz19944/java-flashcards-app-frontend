@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getFlashcards } from "../../actions/flashcardActions";
+import { getFlashcards, deleteFlashcard } from "../../actions/flashcardActions";
 import { Link } from "react-router-dom";
 
 class AllFlashcards extends Component {
   componentDidMount() {
     this.props.getFlashcards();
   }
+
+  onDeleteClick = id => {
+    this.props.deleteFlashcard(id);
+  };
 
   render() {
     const { flashcards } = this.props.flashcard;
@@ -56,7 +60,10 @@ class AllFlashcards extends Component {
                         </Link>
                       </td>
                       <td className="align-middle">
-                        <button className="btn btn-link" onClick={() => {}}>
+                        <button
+                          className="btn btn-link"
+                          onClick={this.onDeleteClick.bind(this, flashcard.id)}
+                        >
                           <svg
                             id="i-trash"
                             xmlns="http://www.w3.org/2000/svg"
@@ -91,5 +98,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getFlashcards }
+  { getFlashcards, deleteFlashcard }
 )(AllFlashcards);

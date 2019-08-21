@@ -6,7 +6,8 @@ import {
   GET_COUNT_ALL_FLASHCARDS,
   GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
-  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE
+  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE,
+  DELETE_FLASHCARD
 } from "./types";
 
 export const getFlashcards = () => async dispatch => {
@@ -90,5 +91,15 @@ export const resetProgress = () => async dispatch => {
     await axios.get("http://localhost:8090/api/flashcard/reset/");
 
     window.location.reload();
+  }
+};
+
+export const deleteFlashcard = id => async dispatch => {
+  if (window.confirm("Czy na pewno usunąć to pytanie?")) {
+    await axios.delete(`http://localhost:8090/api/flashcard/${id}`);
+    dispatch({
+      type: DELETE_FLASHCARD,
+      payload: id
+    });
   }
 };

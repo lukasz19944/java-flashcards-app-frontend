@@ -5,7 +5,8 @@ import {
   GET_COUNT_ALL_FLASHCARDS,
   GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY,
-  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE
+  GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE,
+  DELETE_FLASHCARD
 } from "../actions/types";
 
 const initialState = {
@@ -60,6 +61,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         countAllFlashcardsByCategoryAndKnowledge: action.payload
+      };
+
+    case DELETE_FLASHCARD:
+      return {
+        ...state,
+        flashcards: state.flashcards.filter(
+          flashcard => flashcard.id !== action.payload
+        )
       };
 
     default:

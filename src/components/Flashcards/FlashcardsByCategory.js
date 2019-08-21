@@ -158,7 +158,10 @@ class FlashcardsByCategory extends Component {
             </div>
           ) : (
             <div>
-              <div className="card mb-1 bg-light w-50 mx-auto">
+              <div
+                className="card mb-1 bg-light mx-auto"
+                style={{ width: "760px" }}
+              >
                 <div className="card-header text-light bg-success text-uppercase">
                   <strong>{category}</strong>
                 </div>
@@ -181,8 +184,8 @@ class FlashcardsByCategory extends Component {
           )
         ) : (
           <div
-            className="card mb-1 bg-light w-50 mx-auto"
-            style={{ height: "500px" }}
+            className="card mb-1 bg-light mx-auto"
+            style={{ height: "500px", width: "760px" }}
           >
             <div className="card-header text-light bg-success text-uppercase">
               {category}

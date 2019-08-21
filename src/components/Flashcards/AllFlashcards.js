@@ -2,14 +2,37 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getFlashcards, deleteFlashcard } from "../../actions/flashcardActions";
 import { Link } from "react-router-dom";
+import FlashcardPreview from "../Layout/FlashcardPreview";
 
 class AllFlashcards extends Component {
+  state = {
+    flashcardPreview: ""
+  };
+
   componentDidMount() {
     this.props.getFlashcards();
   }
 
   onDeleteClick = id => {
     this.props.deleteFlashcard(id);
+  };
+
+  showFlashcardPreview = flashcard => {
+    this.setState({
+      flashcardPreview: (
+        <FlashcardPreview
+          flashcard={flashcard}
+          close={this.closeFlashcardPreview}
+          show
+        />
+      )
+    });
+  };
+
+  closeFlashcardPreview = () => {
+    this.setState({
+      flashcardPreview: ""
+    });
   };
 
   render() {
@@ -25,11 +48,14 @@ class AllFlashcards extends Component {
 
               <hr />
 
+              {this.state.flashcardPreview}
+
               <table className="table">
                 <thead>
                   <tr>
                     <th>Pytanie</th>
                     <th>Kategoria</th>
+                    <th>Podgląd</th>
                     <th>Edytuj</th>
                     <th>Usuń</th>
                   </tr>
@@ -41,6 +67,32 @@ class AllFlashcards extends Component {
                         {flashcard.question}
                       </td>
                       <td className="align-middle">{flashcard.category}</td>
+                      <td className="align-middle">
+                        <button
+                          className="btn btn-link"
+                          onClick={this.showFlashcardPreview.bind(
+                            this,
+                            flashcard
+                          )}
+                        >
+                          <svg
+                            id="i-eye"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 32 32"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            stroke="currentcolor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                          >
+                            <circle cx="17" cy="15" r="1" />
+                            <circle cx="16" cy="16" r="6" />
+                            <path d="M2 16 C2 16 7 6 16 6 25 6 30 16 30 16 30 16 25 26 16 26 7 26 2 16 2 16 Z" />
+                          </svg>
+                        </button>
+                      </td>
                       <td className="align-middle">
                         <Link to={`/updateFlashcard/${flashcard.id}`}>
                           <svg

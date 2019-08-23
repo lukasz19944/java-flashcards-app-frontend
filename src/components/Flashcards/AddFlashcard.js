@@ -39,7 +39,7 @@ class AddFlashcard extends Component {
       knowledgeLevel: this.state.knowledgeLevel
     };
 
-    this.props.createFlashcard(newFlashcard, this.props.history);
+    this.props.createFlashcard(newFlashcard, this.props.history, "create");
   }
 
   render() {

@@ -38,12 +38,20 @@ export const getCategories = () => async dispatch => {
   });
 };
 
-export const createFlashcard = (flashcard, history) => async dispatch => {
+export const createFlashcard = (
+  flashcard,
+  history,
+  method
+) => async dispatch => {
   try {
     await axios.post("http://localhost:8090/api/flashcard", flashcard);
 
     if (history) {
-      history.push("/");
+      if (method === "create") {
+        history.push("/");
+      } else if (method === "update") {
+        history.push("/all");
+      }
     }
 
     dispatch({

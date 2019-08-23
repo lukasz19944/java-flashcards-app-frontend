@@ -63,7 +63,7 @@ class UpdateFlashcard extends Component {
       knowledgeLevel: this.state.knowledgeLevel
     };
 
-    this.props.createFlashcard(updateFlashcard, this.props.history);
+    this.props.createFlashcard(updateFlashcard, this.props.history, "update");
   }
 
   render() {

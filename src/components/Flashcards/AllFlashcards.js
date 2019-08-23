@@ -38,6 +38,9 @@ class AllFlashcards extends Component {
 
   onDeleteClick = id => {
     this.props.deleteFlashcard(id);
+    this.setState({
+      flashcards: this.state.flashcards.filter(flashcard => flashcard.id !== id)
+    });
   };
 
   showFlashcardPreview = flashcard => {

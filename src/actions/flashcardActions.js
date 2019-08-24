@@ -11,6 +11,7 @@ import {
   GET_FLASHCARD,
   GET_ERRORS
 } from "./types";
+import { shuffleFlashcards } from "../utils/arrayUtils";
 
 export const getFlashcards = () => async dispatch => {
   const res = await axios.get("http://localhost:8090/api/flashcard");
@@ -26,7 +27,7 @@ export const getFlashcardsByCategory = category => async dispatch => {
   );
   dispatch({
     type: GET_FLASHCARDS_BY_CATEGORY,
-    payload: res.data
+    payload: shuffleFlashcards(res.data)
   });
 };
 

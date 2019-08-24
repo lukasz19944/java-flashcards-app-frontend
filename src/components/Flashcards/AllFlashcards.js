@@ -91,7 +91,7 @@ class AllFlashcards extends Component {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Pytanie</th>
+                    <th className="w-50">Pytanie</th>
                     <th>Kategoria</th>
                     <th>Podgląd</th>
                     <th>Edytuj</th>

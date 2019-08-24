@@ -28,6 +28,14 @@ class Header extends Component {
             <ul className="navbar-nav ml-auto">
               <li className="nav-item mr-3" style={{ marginTop: "4.5px" }}>
                 <Link
+                  to="/random"
+                  className="btn btn-sm btn-outline-dark font-weight-bold"
+                >
+                  LOSOWY TEST
+                </Link>
+              </li>
+              <li className="nav-item mr-3" style={{ marginTop: "4.5px" }}>
+                <Link
                   to="/addFlashcard"
                   className="btn btn-sm btn-outline-dark font-weight-bold"
                 >

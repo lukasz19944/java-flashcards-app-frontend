@@ -9,7 +9,8 @@ import {
   GET_COUNT_ALL_FLASHCARDS_BY_CATEGORY_AND_KNOWLEDGE,
   DELETE_FLASHCARD,
   GET_FLASHCARD,
-  GET_ERRORS
+  GET_ERRORS,
+  GET_RANDOM_FLASHCARDS
 } from "./types";
 import { shuffleFlashcards } from "../utils/arrayUtils";
 
@@ -133,4 +134,12 @@ export const getFlashcard = (id, history) => async dispatch => {
   } catch (error) {
     history.push("/");
   }
+};
+
+export const getRandomFlashcards = () => async dispatch => {
+  const res = await axios.get("http://localhost:8090/api/flashcard/random/");
+  dispatch({
+    type: GET_RANDOM_FLASHCARDS,
+    payload: res.data
+  });
 };

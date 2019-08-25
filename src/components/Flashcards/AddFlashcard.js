@@ -12,6 +12,7 @@ class AddFlashcard extends Component {
       answer: "",
       category: "",
       knowledgeLevel: "",
+      difficulty: 0,
       errors: {}
     };
 
@@ -36,7 +37,8 @@ class AddFlashcard extends Component {
       question: this.state.question,
       answer: this.state.answer,
       category: this.state.category,
-      knowledgeLevel: this.state.knowledgeLevel
+      knowledgeLevel: this.state.knowledgeLevel,
+      difficulty: this.state.difficulty
     };
 
     this.props.createFlashcard(newFlashcard, this.props.history, "create");
@@ -98,6 +100,18 @@ class AddFlashcard extends Component {
                     {errors.category && (
                       <div className="invalid-feedback">{errors.category}</div>
                     )}
+                  </div>
+                  <div className="form-group">
+                    <select
+                      className="form-control form-control-lg"
+                      name="difficulty"
+                      value={this.state.difficulty}
+                      onChange={this.onChange}
+                    >
+                      <option value={0}>Junior</option>
+                      <option value={1}>Mid</option>
+                      <option value={2}>Senior</option>
+                    </select>
                   </div>
 
                   <input

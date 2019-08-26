@@ -16,7 +16,12 @@ class Flashcard extends Component {
         style={{ height: "500px", width: "760px" }}
       >
         <div className="card-header text-light bg-success text-uppercase">
-          <strong>{flashcard.category}</strong>
+          <div className="float-left">
+            <strong className="text-center">{flashcard.category}</strong>
+          </div>
+          <div className="float-right">
+            <strong className="text-right">{flashcard.difficulty}</strong>
+          </div>
         </div>
 
         <div className="card-body bg-light">

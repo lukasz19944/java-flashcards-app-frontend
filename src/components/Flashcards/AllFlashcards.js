@@ -93,6 +93,7 @@ class AllFlashcards extends Component {
                   <tr>
                     <th className="w-50">Pytanie</th>
                     <th>Kategoria</th>
+                    <th>Poziom</th>
                     <th>Podgląd</th>
                     <th>Edytuj</th>
                     <th>Usuń</th>
@@ -105,6 +106,7 @@ class AllFlashcards extends Component {
                         {flashcard.question}
                       </td>
                       <td className="align-middle">{flashcard.category}</td>
+                      <td className="align-middle">{flashcard.difficulty}</td>
                       <td className="align-middle">
                         <button
                           className="btn btn-link"

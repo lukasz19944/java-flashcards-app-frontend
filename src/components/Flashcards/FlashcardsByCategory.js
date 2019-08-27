@@ -77,6 +77,7 @@ class FlashcardsByCategory extends Component {
       question: this.state.currentFlashcard.question,
       answer: this.state.currentFlashcard.answer,
       category: this.state.currentFlashcard.category,
+      difficulty: this.state.currentFlashcard.difficulty,
       knowledgeLevel: knowledgeLevel
     };
 

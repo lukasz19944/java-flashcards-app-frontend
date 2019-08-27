@@ -13,6 +13,11 @@ import ProgressBarAll from "../Progress/ProgressBarAll";
 import ProgressBarCategory from "../Progress/ProgressBarCategory";
 
 class Categories extends Component {
+  state = {
+    active: [true, false, false, false],
+    currentDifficulty: "all"
+  };
+
   componentDidMount() {
     this.props.getCategories();
     this.props.countAllFlashcards();
@@ -20,6 +25,27 @@ class Categories extends Component {
     this.props.countAllFlashcardsByCategory();
     this.props.countAllFlashcardsByCategoryAndKnowledge();
   }
+
+  changeLevel(option) {
+    var buttons = document.getElementsByName("options");
+
+    for (let i = 0; i < 4; i++) {
+      if (buttons[i].id === option) {
+        this.setState(prevState => {
+          const newItems = [...prevState.active];
+          newItems[i] = true;
+          return { active: newItems, currentDifficulty: buttons[i].id };
+        });
+      } else {
+        this.setState(prevState => {
+          const newItems = [...prevState.active];
+          newItems[i] = false;
+          return { active: newItems };
+        });
+      }
+    }
+  }
+
   render() {
     const { categories } = this.props.flashcard;
     const { countAllFlashcards } = this.props.flashcard;
@@ -78,18 +104,97 @@ class Categories extends Component {
         </div>
         <div className="row">
           <div className="col">
+            <h4>Wybierz poziom pytań</h4>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+              <label
+                className={
+                  this.state.active[0]
+                    ? "btn btn-outline-dark active"
+                    : "btn btn-outline-dark"
+                }
+              >
+                <input
+                  type="radio"
+                  name="options"
+                  id="all"
+                  onClick={() => this.changeLevel("all")}
+                />
+                WSZYSTKIE
+              </label>
+              <label
+                className={
+                  this.state.active[1]
+                    ? "btn btn-outline-dark active"
+                    : "btn btn-outline-dark"
+                }
+              >
+                <input
+                  type="radio"
+                  name="options"
+                  id="junior"
+                  onClick={() => this.changeLevel("junior")}
+                />
+                JUNIOR
+              </label>
+              <label
+                className={
+                  this.state.active[2]
+                    ? "btn btn-outline-dark active"
+                    : "btn btn-outline-dark"
+                }
+              >
+                <input
+                  type="radio"
+                  name="options"
+                  id="mid"
+                  onClick={() => this.changeLevel("mid")}
+                />
+                MID
+              </label>
+              <label
+                className={
+                  this.state.active[3]
+                    ? "btn btn-outline-dark active"
+                    : "btn btn-outline-dark"
+                }
+              >
+                <input
+                  type="radio"
+                  name="options"
+                  id="senior"
+                  onClick={() => this.changeLevel("senior")}
+                />
+                SENIOR
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
             {firstCol.map(category => (
-              <Category key={category} category={category} />
+              <Category
+                key={category}
+                category={category}
+                currentDifficulty={this.state.currentDifficulty}
+              />
             ))}
           </div>
           <div className="col">
             {secondCol.map(category => (
-              <Category key={category} category={category} />
+              <Category
+                key={category}
+                category={category}
+                currentDifficulty={this.state.currentDifficulty}
+              />
             ))}
           </div>
           <div className="col">
             {thirdCol.map(category => (
-              <Category key={category} category={category} />
+              <Category
+                key={category}
+                category={category}
+                currentDifficulty={this.state.currentDifficulty}
+              />
             ))}
           </div>
         </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   GET_FLASHCARDS,
   GET_FLASHCARDS_BY_CATEGORY,
+  GET_FLASHCARDS_BY_CATEGORY_AND_DIFFICULTY,
   GET_CATEGORIES,
   GET_COUNT_ALL_FLASHCARDS,
   GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
@@ -28,6 +29,19 @@ export const getFlashcardsByCategory = category => async dispatch => {
   );
   dispatch({
     type: GET_FLASHCARDS_BY_CATEGORY,
+    payload: shuffleFlashcards(res.data)
+  });
+};
+
+export const getFlashcardsByCategoryAndDifficulty = (
+  category,
+  difficulty
+) => async dispatch => {
+  const res = await axios.get(
+    `http://localhost:8090/api/flashcard/category/${category}/${difficulty}`
+  );
+  dispatch({
+    type: GET_FLASHCARDS_BY_CATEGORY_AND_DIFFICULTY,
     payload: shuffleFlashcards(res.data)
   });
 };

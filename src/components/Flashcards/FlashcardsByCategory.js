@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getFlashcardsByCategory,
-  createFlashcard
+  createFlashcard,
+  getFlashcardsByCategoryAndDifficulty
 } from "../../actions/flashcardActions";
 import Flashcard from "./Flashcard";
 
 class FlashcardsByCategory extends Component {
   componentDidMount() {
     const { category } = this.props.match.params;
-    this.props.getFlashcardsByCategory(category);
+    const { difficulty } = this.props.match.params;
+    this.props.getFlashcardsByCategoryAndDifficulty(category, difficulty);
   }
 
   state = {
@@ -86,7 +88,7 @@ class FlashcardsByCategory extends Component {
   }
 
   render() {
-    const { flashcardsByCategory } = this.props.flashcard;
+    const { flashcardsByCategoryAndDifficulty } = this.props.flashcard;
     const { category } = this.props.match.params;
 
     let buttons = (
@@ -121,7 +123,10 @@ class FlashcardsByCategory extends Component {
       buttons = (
         <button
           className="btn btn-danger btn-block"
-          onClick={this.changeFlashcard.bind(this, flashcardsByCategory)}
+          onClick={this.changeFlashcard.bind(
+            this,
+            flashcardsByCategoryAndDifficulty
+          )}
         >
           DALEJ
         </button>
@@ -174,7 +179,7 @@ class FlashcardsByCategory extends Component {
                   className="btn btn-danger"
                   onClick={this.changeFlashcard.bind(
                     this,
-                    flashcardsByCategory
+                    flashcardsByCategoryAndDifficulty
                   )}
                 >
                   START
@@ -227,5 +232,9 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getFlashcardsByCategory, createFlashcard }
+  {
+    getFlashcardsByCategory,
+    getFlashcardsByCategoryAndDifficulty,
+    createFlashcard
+  }
 )(FlashcardsByCategory);

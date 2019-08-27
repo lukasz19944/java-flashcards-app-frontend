@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/all" component={AllFlashcards} />
           <Route
             exact
-            path="/category/:category"
+            path="/category/:category/:difficulty"
             component={FlashcardsByCategory}
           />
           <Route exact path="/addFlashcard" component={AddFlashcard} />

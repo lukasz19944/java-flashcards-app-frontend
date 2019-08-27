@@ -1,6 +1,7 @@
 import {
   GET_FLASHCARDS,
   GET_FLASHCARDS_BY_CATEGORY,
+  GET_FLASHCARDS_BY_CATEGORY_AND_DIFFICULTY,
   GET_CATEGORIES,
   GET_COUNT_ALL_FLASHCARDS,
   GET_COUNT_ALL_FLASHCARDS_BY_KNOWLEDGE,
@@ -14,6 +15,7 @@ import {
 const initialState = {
   flashcards: [],
   flashcardsByCategory: [],
+  flashcardsByCategoryAndDifficulty: [],
   categories: [],
   countAllFlashcards: 0,
   countAllFlashcardsByKnowledge: 0,
@@ -35,6 +37,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         flashcardsByCategory: action.payload
+      };
+
+    case GET_FLASHCARDS_BY_CATEGORY_AND_DIFFICULTY:
+      return {
+        ...state,
+        flashcardsByCategoryAndDifficulty: action.payload
       };
 
     case GET_CATEGORIES:

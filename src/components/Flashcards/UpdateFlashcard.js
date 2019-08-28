@@ -33,8 +33,7 @@ class UpdateFlashcard extends Component {
       question,
       answer,
       category,
-      knowledgeLevel,
-      difficulty
+      knowledgeLevel
     } = nextProps.flashcard;
 
     this.setState({
@@ -42,8 +41,30 @@ class UpdateFlashcard extends Component {
       question,
       answer,
       category,
-      knowledgeLevel,
-      difficulty
+      knowledgeLevel
+    });
+
+    let difficulty;
+
+    switch (nextProps.flashcard.difficulty) {
+      case "JUNIOR":
+        difficulty = 0;
+        break;
+
+      case "MID":
+        difficulty = 1;
+        break;
+
+      case "SENIOR":
+        difficulty = 2;
+        break;
+
+      default:
+        difficulty = 0;
+    }
+
+    this.setState({
+      difficulty: difficulty
     });
   }
 

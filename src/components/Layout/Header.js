@@ -24,6 +24,11 @@ class Header extends Component {
                   Wszystkie pytania
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to="/progress" className="nav-link">
+                  Postęp
+                </Link>
+              </li>
             </ul>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item mr-3" style={{ marginTop: "4.5px" }}>

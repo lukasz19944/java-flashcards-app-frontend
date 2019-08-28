@@ -11,6 +11,7 @@ import FlashcardsByCategory from "./components/Flashcards/FlashcardsByCategory";
 import AddFlashcard from "./components/Flashcards/AddFlashcard";
 import UpdateFlashcard from "./components/Flashcards/UpdateFlashcard";
 import RandomTest from "./components/Flashcards/RandomTest";
+import ProgressComponent from "./components/Progress/ProgressComponent";
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
             path="/updateFlashcard/:id"
             component={UpdateFlashcard}
           />
-          <Route exact path="/random" component={RandomTest}></Route>
+          <Route exact path="/random" component={RandomTest} />
+          <Route exact path="/progress" component={ProgressComponent} />
         </div>
       </BrowserRouter>
     </Provider>

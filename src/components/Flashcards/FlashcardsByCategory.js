@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getFlashcardsByCategory,
-  createFlashcard,
-  getFlashcardsByCategoryAndDifficulty
+  getFlashcardsByCategoryAndDifficulty,
+  updateKnowledgeLevel
 } from "../../actions/flashcardActions";
 import Flashcard from "./Flashcard";
 
@@ -72,16 +72,14 @@ class FlashcardsByCategory extends Component {
       });
     }
 
-    const updatedFlashcard = {
+    const updatedUserFlashcard = {
       id: this.state.currentFlashcard.id,
-      question: this.state.currentFlashcard.question,
-      answer: this.state.currentFlashcard.answer,
-      category: this.state.currentFlashcard.category,
-      difficulty: this.state.currentFlashcard.difficulty,
+      flashcard: this.state.currentFlashcard.flashcard,
+      user: this.state.currentFlashcard.user,
       knowledgeLevel: knowledgeLevel
     };
 
-    this.props.createFlashcard(updatedFlashcard);
+    this.props.updateKnowledgeLevel(updatedUserFlashcard);
 
     this.setState({
       answered: true
@@ -91,6 +89,7 @@ class FlashcardsByCategory extends Component {
   render() {
     const { flashcardsByCategoryAndDifficulty } = this.props.flashcard;
     const { category } = this.props.match.params;
+    const flashcardCount = flashcardsByCategoryAndDifficulty.length;
 
     let buttons = (
       <button
@@ -173,7 +172,8 @@ class FlashcardsByCategory extends Component {
                 </div>
                 <div className="card-body bg-light">
                   <h5 className="card-title">
-                    Liczba pytań rekrutacyjnych z zakresu {category} to:
+                    Liczba pytań rekrutacyjnych z zakresu {category} to:{" "}
+                    {flashcardCount}
                   </h5>
                 </div>
                 <button
@@ -236,6 +236,6 @@ export default connect(
   {
     getFlashcardsByCategory,
     getFlashcardsByCategoryAndDifficulty,
-    createFlashcard
+    updateKnowledgeLevel
   }
 )(FlashcardsByCategory);

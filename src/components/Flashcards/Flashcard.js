@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Flashcard extends Component {
   render() {
-    const { flashcard } = this.props;
+    const { flashcard } = this.props.flashcard;
 
     let answer = null;
 

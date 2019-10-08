@@ -64,9 +64,9 @@ export const createFlashcard = (
 
     if (history) {
       if (method === "create") {
-        history.push("/");
+        history.push("/flasha");
       } else if (method === "update") {
-        history.push("/all");
+        history.push("/flashcards");
       }
     }
 
@@ -156,4 +156,16 @@ export const getRandomFlashcards = () => async dispatch => {
     type: GET_RANDOM_FLASHCARDS,
     payload: res.data
   });
+};
+
+export const updateKnowledgeLevel = (flashcard, history) => async dispatch => {
+  try {
+    await axios.post(
+      "http://localhost:8090/api/flashcard/updateKnowledge",
+      flashcard
+    );
+    history.push("/");
+  } catch (err) {
+    console.log("Update knowledge error");
+  }
 };

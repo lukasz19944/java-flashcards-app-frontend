@@ -7,7 +7,7 @@ class FlashcardPreview extends Component {
     return (
       <div>
         <Modal isOpen={true} size="lg">
-          <Flashcard flashcard={this.props.flashcard} answerShowed>
+          <Flashcard flashcard={this.props} answerShowed>
             <Button color="danger" onClick={this.props.close}>
               Zamknij
             </Button>

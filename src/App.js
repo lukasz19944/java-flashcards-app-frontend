@@ -19,6 +19,7 @@ import { logout } from "./actions/securityActions";
 import SecuredRoute from "./securityUtils/SecuredRoute";
 import Login from "./components/UserManagement/Login";
 import Register from "./components/UserManagement/Register";
+import RedirectToHomePage from "./components/Layout/RedirectToHomePage";
 
 function App() {
   const jwtToken = localStorage.jwtToken;
@@ -49,17 +50,28 @@ function App() {
             <Route exact path="/register" component={Register} />
 
             <SecuredRoute exact path="/" component={HomePage} />
-            <SecuredRoute exact path="/flashcards" component={AllFlashcards} />
+            <SecuredRoute
+              exact
+              path="/flashcards"
+              component={AllFlashcards}
+              role="ROLE_ADMIN"
+            />
             <SecuredRoute
               exact
               path="/category/:category/:difficulty"
               component={FlashcardsByCategory}
             />
-            <SecuredRoute exact path="/addFlashcard" component={AddFlashcard} />
+            <SecuredRoute
+              exact
+              path="/addFlashcard"
+              component={AddFlashcard}
+              role="ROLE_ADMIN"
+            />
             <SecuredRoute
               exact
               path="/updateFlashcard/:id"
               component={UpdateFlashcard}
+              role="ROLE_ADMIN"
             />
             <SecuredRoute exact path="/random" component={RandomTest} />
             <SecuredRoute
@@ -67,6 +79,8 @@ function App() {
               path="/progress"
               component={ProgressComponent}
             />
+
+            <Route path="/*" component={RedirectToHomePage}></Route>
           </Switch>
         </div>
       </BrowserRouter>

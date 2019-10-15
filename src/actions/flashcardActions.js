@@ -64,7 +64,7 @@ export const createFlashcard = (
 
     if (history) {
       if (method === "create") {
-        history.push("/flasha");
+        history.push("/");
       } else if (method === "update") {
         history.push("/flashcards");
       }

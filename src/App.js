@@ -69,6 +69,11 @@ function App() {
             />
             <SecuredRoute
               exact
+              path="/proposeFlashcard"
+              component={AddFlashcard}
+            />
+            <SecuredRoute
+              exact
               path="/updateFlashcard/:id"
               component={UpdateFlashcard}
               role="ROLE_ADMIN"

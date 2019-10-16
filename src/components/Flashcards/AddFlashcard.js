@@ -41,11 +41,31 @@ class AddFlashcard extends Component {
       difficulty: this.state.difficulty
     };
 
-    this.props.createFlashcard(newFlashcard, this.props.history, "create");
+    const proposed =
+      this.props.location.pathname === "/addFlashcard" ? false : true;
+
+    this.props.createFlashcard(
+      newFlashcard,
+      this.props.history,
+      "create",
+      proposed
+    );
   }
 
   render() {
     const { errors } = this.state;
+
+    const text =
+      this.props.location.pathname === "/addFlashcard" ? (
+        <h5 className="display-4 text-center">Utwórz nowe pytanie</h5>
+      ) : (
+        <React.Fragment>
+          <h5 className="display-4 text-center">Zaproponuj nowe pytanie</h5>
+          <h6 className="display-6 text-center text-muted">
+            Zostanie dodane po zaakceptowaniu przez administratora
+          </h6>
+        </React.Fragment>
+      );
 
     return (
       <div>
@@ -53,7 +73,7 @@ class AddFlashcard extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
-                <h5 className="display-4 text-center">Utwórz nowe pytanie</h5>
+                {text}
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">

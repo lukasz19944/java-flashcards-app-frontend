@@ -50,6 +50,17 @@ class Header extends Component {
       </li>
     );
 
+    const proposeFlashcardHeaderLink = (
+      <li className="nav-item mr-3" style={{ marginTop: "4.5px" }}>
+        <Link
+          to="/proposeFlashcard"
+          className="btn btn-sm btn-outline-dark font-weight-bold"
+        >
+          ZAPROPONUJ
+        </Link>
+      </li>
+    );
+
     const logoutHeaderLink = (
       <li className="nav-item">
         <Link to="/" className="nav-link" onClick={this.logout.bind(this)}>
@@ -79,6 +90,7 @@ class Header extends Component {
         <ul className="navbar-nav mr-auto">{progressHeaderLink}</ul>
         <ul className="navbar-nav ml-auto">
           {randomTestHeaderLink}
+          {proposeFlashcardHeaderLink}
           {logoutHeaderLink}
         </ul>
       </div>

@@ -57,10 +57,18 @@ export const getCategories = () => async dispatch => {
 export const createFlashcard = (
   flashcard,
   history,
-  method
+  method,
+  proposed
 ) => async dispatch => {
   try {
-    await axios.post("http://localhost:8090/api/flashcard", flashcard);
+    if (proposed) {
+      await axios.post(
+        "http://localhost:8090/api/flashcard/propose",
+        flashcard
+      );
+    } else {
+      await axios.post("http://localhost:8090/api/flashcard", flashcard);
+    }
 
     if (history) {
       if (method === "create") {

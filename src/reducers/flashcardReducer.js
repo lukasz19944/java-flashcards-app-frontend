@@ -1,5 +1,6 @@
 import {
-  GET_FLASHCARDS,
+  GET_ACCEPTED_FLASHCARDS,
+  GET_NOT_ACCEPTED_FLASHCARDS,
   GET_FLASHCARDS_BY_CATEGORY,
   GET_FLASHCARDS_BY_CATEGORY_AND_DIFFICULTY,
   GET_CATEGORIES,
@@ -13,7 +14,8 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  flashcards: [],
+  acceptedFlashcards: [],
+  notAcceptedFlashcards: [],
   flashcardsByCategory: [],
   flashcardsByCategoryAndDifficulty: [],
   categories: [],
@@ -27,10 +29,16 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_FLASHCARDS:
+    case GET_ACCEPTED_FLASHCARDS:
       return {
         ...state,
-        flashcards: action.payload
+        acceptedFlashcards: action.payload
+      };
+
+    case GET_NOT_ACCEPTED_FLASHCARDS:
+      return {
+        ...state,
+        notAcceptedFlashcards: action.payload
       };
 
     case GET_FLASHCARDS_BY_CATEGORY:

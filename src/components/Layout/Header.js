@@ -20,6 +20,14 @@ class Header extends Component {
       </li>
     );
 
+    const proposedFlashcardsHeaderLink = (
+      <li className="nav-item">
+        <Link to="/proposedFlashcards" className="nav-link">
+          Propozycje pytań
+        </Link>
+      </li>
+    );
+
     const progressHeaderLink = (
       <li className="nav-item">
         <Link to="/progress" className="nav-link">
@@ -109,6 +117,7 @@ class Header extends Component {
       <div className="collapse navbar-collapse" id="mobile-nav">
         <ul className="navbar-nav mr-auto">
           {allFlashcardsHeaderLink}
+          {proposedFlashcardsHeaderLink}
           {progressHeaderLink}
         </ul>
         <ul className="navbar-nav ml-auto">

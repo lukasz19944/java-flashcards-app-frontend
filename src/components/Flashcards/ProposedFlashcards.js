@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  getAcceptedFlashcards,
-  deleteFlashcard
+  getNotAcceptedFlashcards,
+  acceptFlashcard,
+  rejectFlashcard
 } from "../../actions/flashcardActions";
 import { Link } from "react-router-dom";
 import FlashcardPreview from "../Layout/FlashcardPreview";
 
-class AllFlashcards extends Component {
+class ProposedFlashcards extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       flashcardPreview: "",
-      acceptedFlashcards: this.props.flashcard.acceptedFlashcards,
+      notAcceptedFlashcards: this.props.flashcard.notAcceptedFlashcards,
       searched: false
     };
 
@@ -21,7 +22,7 @@ class AllFlashcards extends Component {
   }
 
   onChange(e) {
-    const currentList = this.props.flashcard.acceptedFlashcards;
+    const currentList = this.props.flashcard.notAcceptedFlashcards;
 
     const newList = currentList.filter(item => {
       const lc = item.question.toLowerCase();
@@ -30,23 +31,14 @@ class AllFlashcards extends Component {
     });
 
     this.setState({
-      acceptedFlashcards: newList,
+      notAcceptedFlashcards: newList,
       searched: true
     });
   }
 
   componentDidMount() {
-    this.props.getAcceptedFlashcards();
+    this.props.getNotAcceptedFlashcards();
   }
-
-  onDeleteClick = id => {
-    this.props.deleteFlashcard(id);
-    this.setState({
-      acceptedFlashcards: this.state.acceptedFlashcards.filter(
-        flashcard => flashcard.id !== id
-      )
-    });
-  };
 
   showFlashcardPreview = flashcard => {
     this.setState({
@@ -54,6 +46,8 @@ class AllFlashcards extends Component {
         <FlashcardPreview
           flashcard={flashcard}
           close={this.closeFlashcardPreview}
+          accept={this.acceptFlashcard.bind(this, flashcard.id)}
+          reject={this.rejectFlashcard.bind(this, flashcard.id)}
           show
         />
       )
@@ -66,11 +60,19 @@ class AllFlashcards extends Component {
     });
   };
 
+  acceptFlashcard = id => {
+    this.props.acceptFlashcard(id);
+  };
+
+  rejectFlashcard = id => {
+    this.props.rejectFlashcard(id);
+  };
+
   render() {
-    let { acceptedFlashcards } = this.props.flashcard;
+    let { notAcceptedFlashcards } = this.props.flashcard;
 
     if (this.state.searched) {
-      acceptedFlashcards = this.state.acceptedFlashcards;
+      notAcceptedFlashcards = this.state.notAcceptedFlashcards;
     }
 
     return (
@@ -100,12 +102,10 @@ class AllFlashcards extends Component {
                     <th>Kategoria</th>
                     <th>Poziom</th>
                     <th>Podgląd</th>
-                    <th>Edytuj</th>
-                    <th>Usuń</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {acceptedFlashcards.map(flashcard => (
+                  {notAcceptedFlashcards.map(flashcard => (
                     <tr key={flashcard.id}>
                       <td className="text-left align-middle">
                         {flashcard.question}
@@ -138,45 +138,6 @@ class AllFlashcards extends Component {
                           </svg>
                         </button>
                       </td>
-                      <td className="align-middle">
-                        <Link to={`/updateFlashcard/${flashcard.id}`}>
-                          <svg
-                            id="i-edit"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 32 32"
-                            width="24"
-                            height="24"
-                            fill="none"
-                            stroke="currentcolor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                          >
-                            <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z" />
-                          </svg>
-                        </Link>
-                      </td>
-                      <td className="align-middle">
-                        <button
-                          className="btn btn-link"
-                          onClick={this.onDeleteClick.bind(this, flashcard.id)}
-                        >
-                          <svg
-                            id="i-trash"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 32 32"
-                            width="24"
-                            height="24"
-                            fill="none"
-                            stroke="currentcolor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                          >
-                            <path d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
-                          </svg>
-                        </button>
-                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -195,5 +156,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getAcceptedFlashcards, deleteFlashcard }
-)(AllFlashcards);
+  { getNotAcceptedFlashcards, acceptFlashcard, rejectFlashcard }
+)(ProposedFlashcards);

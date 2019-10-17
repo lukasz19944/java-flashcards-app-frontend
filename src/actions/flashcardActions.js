@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
-  GET_FLASHCARDS,
+  GET_ACCEPTED_FLASHCARDS,
+  GET_NOT_ACCEPTED_FLASHCARDS,
   GET_FLASHCARDS_BY_CATEGORY,
   GET_FLASHCARDS_BY_CATEGORY_AND_DIFFICULTY,
   GET_CATEGORIES,
@@ -11,14 +12,26 @@ import {
   DELETE_FLASHCARD,
   GET_FLASHCARD,
   GET_ERRORS,
-  GET_RANDOM_FLASHCARDS
+  GET_RANDOM_FLASHCARDS,
+  ACCEPT_FLASHCARD,
+  REJECT_FLASHCARD
 } from "./types";
 import { shuffleFlashcards } from "../utils/arrayUtils";
 
-export const getFlashcards = () => async dispatch => {
-  const res = await axios.get("http://localhost:8090/api/flashcard");
+export const getAcceptedFlashcards = () => async dispatch => {
+  const res = await axios.get("http://localhost:8090/api/flashcard/accepted");
   dispatch({
-    type: GET_FLASHCARDS,
+    type: GET_ACCEPTED_FLASHCARDS,
+    payload: res.data
+  });
+};
+
+export const getNotAcceptedFlashcards = () => async dispatch => {
+  const res = await axios.get(
+    "http://localhost:8090/api/flashcard/notAccepted"
+  );
+  dispatch({
+    type: GET_NOT_ACCEPTED_FLASHCARDS,
     payload: res.data
   });
 };
@@ -175,5 +188,27 @@ export const updateKnowledgeLevel = (flashcard, history) => async dispatch => {
     history.push("/");
   } catch (err) {
     console.log("Update knowledge error");
+  }
+};
+
+export const acceptFlashcard = id => async dispatch => {
+  if (window.confirm("Czy na pewno chcesz zaakceptować to pytanie?")) {
+    await axios.get(`http://localhost:8090/api/flashcard/accept/${id}`);
+    dispatch({
+      type: ACCEPT_FLASHCARD,
+      payload: id
+    });
+    window.location.reload();
+  }
+};
+
+export const rejectFlashcard = id => async dispatch => {
+  if (window.confirm("Czy na pewno chcesz odrzucić to pytanie?")) {
+    await axios.get(`http://localhost:8090/api/flashcard/reject/${id}`);
+    dispatch({
+      type: REJECT_FLASHCARD,
+      payload: id
+    });
+    window.location.reload();
   }
 };

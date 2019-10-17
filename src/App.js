@@ -20,6 +20,7 @@ import SecuredRoute from "./securityUtils/SecuredRoute";
 import Login from "./components/UserManagement/Login";
 import Register from "./components/UserManagement/Register";
 import RedirectToHomePage from "./components/Layout/RedirectToHomePage";
+import ProposedFlashcards from "./components/Flashcards/ProposedFlashcards";
 
 function App() {
   const jwtToken = localStorage.jwtToken;
@@ -54,6 +55,12 @@ function App() {
               exact
               path="/flashcards"
               component={AllFlashcards}
+              role="ROLE_ADMIN"
+            />
+            <SecuredRoute
+              exact
+              path="/proposedFlashcards"
+              component={ProposedFlashcards}
               role="ROLE_ADMIN"
             />
             <SecuredRoute

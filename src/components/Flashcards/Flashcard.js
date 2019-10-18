@@ -2,8 +2,35 @@ import React, { Component } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { createTicket } from "../../actions/ticketActions";
 import { connect } from "react-redux";
+import TicketWindow from "../Layout/TicketWindow";
 
 class Flashcard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ticketWindow: ""
+    };
+  }
+
+  showTicketWindow = flashcard => {
+    this.setState({
+      ticketWindow: (
+        <TicketWindow
+          flashcard={flashcard}
+          close={this.closeTicketWindow}
+          show
+        />
+      )
+    });
+  };
+
+  closeTicketWindow = () => {
+    this.setState({
+      ticketWindow: ""
+    });
+  };
+
   onReportButtonClicked = (flashcard, message) => {
     const ticket = {
       flashcard: flashcard,
@@ -73,10 +100,13 @@ class Flashcard extends Component {
         </div>
         <div
           className="text-right p-2"
-          onClick={this.onReportButtonClicked.bind(this, flashcard, "")}
+          onClick={this.showTicketWindow.bind(this, flashcard)}
         >
           {reportButton}
         </div>
+
+        {this.state.ticketWindow}
+
         {this.props.children}
       </div>
     );

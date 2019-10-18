@@ -5,7 +5,6 @@ import {
   acceptFlashcard,
   rejectFlashcard
 } from "../../actions/flashcardActions";
-import { Link } from "react-router-dom";
 import FlashcardPreview from "../Layout/FlashcardPreview";
 
 class ProposedFlashcards extends Component {

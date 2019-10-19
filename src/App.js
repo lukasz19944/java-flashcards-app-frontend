@@ -21,6 +21,8 @@ import Login from "./components/UserManagement/Login";
 import Register from "./components/UserManagement/Register";
 import RedirectToHomePage from "./components/Layout/RedirectToHomePage";
 import ProposedFlashcards from "./components/Flashcards/ProposedFlashcards";
+import AllTickets from "./components/Tickets/AllTickets";
+import Ticket from "./components/Tickets/Ticket";
 
 function App() {
   const jwtToken = localStorage.jwtToken;
@@ -83,6 +85,18 @@ function App() {
               exact
               path="/updateFlashcard/:id"
               component={UpdateFlashcard}
+              role="ROLE_ADMIN"
+            />
+            <SecuredRoute
+              exact
+              path="/tickets"
+              component={AllTickets}
+              role="ROLE_ADMIN"
+            />
+            <SecuredRoute
+              exact
+              path="/showTicket/:id"
+              component={Ticket}
               role="ROLE_ADMIN"
             />
             <SecuredRoute exact path="/random" component={RandomTest} />

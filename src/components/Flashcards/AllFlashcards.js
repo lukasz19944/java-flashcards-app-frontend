@@ -55,6 +55,7 @@ class AllFlashcards extends Component {
           flashcard={flashcard}
           close={this.closeFlashcardPreview}
           show
+          canBeReported={true}
         />
       )
     });
@@ -139,7 +140,12 @@ class AllFlashcards extends Component {
                         </button>
                       </td>
                       <td className="align-middle">
-                        <Link to={`/updateFlashcard/${flashcard.id}`}>
+                        <Link
+                          to={{
+                            pathname: `/updateFlashcard/${flashcard.id}`,
+                            state: { from: this.props.location.pathname }
+                          }}
+                        >
                           <svg
                             id="i-edit"
                             xmlns="http://www.w3.org/2000/svg"

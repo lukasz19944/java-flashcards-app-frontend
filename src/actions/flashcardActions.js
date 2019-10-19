@@ -71,7 +71,8 @@ export const createFlashcard = (
   flashcard,
   history,
   method,
-  proposed
+  proposed,
+  fromUrl
 ) => async dispatch => {
   try {
     if (proposed) {
@@ -87,7 +88,7 @@ export const createFlashcard = (
       if (method === "create") {
         history.push("/");
       } else if (method === "update") {
-        history.push("/flashcards");
+        history.push(fromUrl);
       }
     }
 
@@ -179,15 +180,14 @@ export const getRandomFlashcards = () => async dispatch => {
   });
 };
 
-export const updateKnowledgeLevel = (flashcard, history) => async dispatch => {
+export const updateKnowledgeLevel = flashcard => async dispatch => {
   try {
     await axios.post(
       "http://localhost:8090/api/flashcard/updateKnowledge",
       flashcard
     );
-    history.push("/");
   } catch (err) {
-    console.log("Update knowledge error");
+    console.log(err);
   }
 };
 

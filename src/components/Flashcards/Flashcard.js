@@ -31,14 +31,6 @@ class Flashcard extends Component {
     });
   };
 
-  onReportButtonClicked = (flashcard, message) => {
-    const ticket = {
-      flashcard: flashcard,
-      message: ""
-    };
-    this.props.createTicket(ticket);
-  };
-
   render() {
     const { flashcard } = this.props.flashcard;
 
@@ -51,7 +43,8 @@ class Flashcard extends Component {
     let tooltip;
     let reportButton;
 
-    if (flashcard.accepted) {
+    // do poprawy
+    if (this.props.canBeReported) {
       tooltip = <Tooltip id="tooltip">Zgłoś błąd</Tooltip>;
 
       reportButton = (

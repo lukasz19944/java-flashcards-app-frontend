@@ -36,6 +36,14 @@ class Header extends Component {
       </li>
     );
 
+    const ticketsHeaderLink = (
+      <li className="nav-item">
+        <Link to="/tickets" className="nav-link">
+          Zgłoszenia
+        </Link>
+      </li>
+    );
+
     const randomTestHeaderLink = (
       <li className="nav-item mr-3" style={{ marginTop: "4.5px" }}>
         <Link
@@ -119,6 +127,7 @@ class Header extends Component {
           {allFlashcardsHeaderLink}
           {proposedFlashcardsHeaderLink}
           {progressHeaderLink}
+          {ticketsHeaderLink}
         </ul>
         <ul className="navbar-nav ml-auto">
           {randomTestHeaderLink}
@@ -130,7 +139,7 @@ class Header extends Component {
 
     let headerLinks;
 
-    if (valid_token && user) {
+    if (valid_token && user && user.authority) {
       if (user.authority.includes("ROLE_ADMIN")) {
         headerLinks = userIsAdmin;
       } else {

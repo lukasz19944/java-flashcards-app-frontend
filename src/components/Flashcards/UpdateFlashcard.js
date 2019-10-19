@@ -12,8 +12,8 @@ class UpdateFlashcard extends Component {
       question: "",
       answer: "",
       category: "",
-      knowledgeLevel: "",
       difficulty: 0,
+      accepted: false,
       errors: {}
     };
 
@@ -28,20 +28,14 @@ class UpdateFlashcard extends Component {
       });
     }
 
-    const {
-      id,
-      question,
-      answer,
-      category,
-      knowledgeLevel
-    } = nextProps.flashcard;
+    const { id, question, answer, category, accepted } = nextProps.flashcard;
 
     this.setState({
       id,
       question,
       answer,
       category,
-      knowledgeLevel
+      accepted
     });
 
     let difficulty;
@@ -86,11 +80,19 @@ class UpdateFlashcard extends Component {
       question: this.state.question,
       answer: this.state.answer,
       category: this.state.category,
-      knowledgeLevel: this.state.knowledgeLevel,
-      difficulty: this.state.difficulty
+      difficulty: this.state.difficulty,
+      accepted: this.state.accepted
     };
 
-    this.props.createFlashcard(updateFlashcard, this.props.history, "update");
+    if (this.props.location.state) {
+      this.props.createFlashcard(
+        updateFlashcard,
+        this.props.history,
+        "update",
+        false,
+        this.props.location.state.from
+      );
+    }
   }
 
   render() {

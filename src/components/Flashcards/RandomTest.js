@@ -148,6 +148,7 @@ class RandomTest extends Component {
               <Flashcard
                 flashcard={this.state.currentFlashcard}
                 answerShowed={this.state.answerShowed}
+                canBeReported={true}
               >
                 <div className="btn-group" style={{ width: "100%" }}>
                   {buttons}

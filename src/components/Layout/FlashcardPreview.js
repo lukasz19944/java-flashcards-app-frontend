@@ -21,7 +21,11 @@ class FlashcardPreview extends Component {
     return (
       <div>
         <Modal isOpen={true} size="lg">
-          <Flashcard flashcard={this.props} answerShowed>
+          <Flashcard
+            flashcard={this.props}
+            answerShowed
+            canBeReported={this.props.canBeReported}
+          >
             {flashcardButtons}
             <Button color="danger" onClick={this.props.close}>
               Zamknij

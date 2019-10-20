@@ -43,7 +43,6 @@ class Flashcard extends Component {
     let tooltip;
     let reportButton;
 
-    // do poprawy
     if (this.props.canBeReported) {
       tooltip = <Tooltip id="tooltip">Zgłoś błąd</Tooltip>;
 

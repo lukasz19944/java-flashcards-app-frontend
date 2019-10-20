@@ -59,8 +59,10 @@ export const getFlashcardsByCategoryAndDifficulty = (
   });
 };
 
-export const getCategories = () => async dispatch => {
-  const res = await axios.get("http://localhost:8090/api/flashcard/category");
+export const getCategoriesByDifficulty = difficulty => async dispatch => {
+  const res = await axios.get(
+    `http://localhost:8090/api/flashcard/category/difficulty/${difficulty}`
+  );
   dispatch({
     type: GET_CATEGORIES,
     payload: res.data

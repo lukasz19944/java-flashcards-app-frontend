@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getCategories } from "../../actions/flashcardActions";
+import { getCategoriesByDifficulty } from "../../actions/flashcardActions";
 import Category from "./Category";
 
 class Categories extends Component {
@@ -10,7 +10,7 @@ class Categories extends Component {
   };
 
   componentDidMount() {
-    this.props.getCategories();
+    this.props.getCategoriesByDifficulty("all");
   }
 
   changeLevel(option) {
@@ -23,6 +23,7 @@ class Categories extends Component {
           newItems[i] = true;
           return { active: newItems, currentDifficulty: buttons[i].id };
         });
+        this.props.getCategoriesByDifficulty(option);
       } else {
         this.setState(prevState => {
           const newItems = [...prevState.active];
@@ -155,5 +156,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCategories }
+  { getCategoriesByDifficulty }
 )(Categories);

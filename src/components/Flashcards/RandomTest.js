@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getRandomFlashcards,
-  createFlashcard
+  updateKnowledgeLevel
 } from "../../actions/flashcardActions";
 import Flashcard from "./Flashcard";
 
@@ -69,15 +69,14 @@ class RandomTest extends Component {
       });
     }
 
-    const updatedFlashcard = {
+    const updatedUserFlashcard = {
       id: this.state.currentFlashcard.id,
-      question: this.state.currentFlashcard.question,
-      answer: this.state.currentFlashcard.answer,
-      category: this.state.currentFlashcard.category,
+      flashcard: this.state.currentFlashcard.flashcard,
+      user: this.state.currentFlashcard.user,
       knowledgeLevel: knowledgeLevel
     };
 
-    this.props.createFlashcard(updatedFlashcard);
+    this.props.updateKnowledgeLevel(updatedUserFlashcard);
 
     this.setState({
       answered: true
@@ -225,5 +224,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getRandomFlashcards, createFlashcard }
+  { getRandomFlashcards, updateKnowledgeLevel }
 )(RandomTest);

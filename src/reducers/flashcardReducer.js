@@ -86,7 +86,7 @@ export default function(state = initialState, action) {
     case DELETE_FLASHCARD:
       return {
         ...state,
-        flashcards: state.flashcards.filter(
+        acceptedFlashcards: state.acceptedFlashcards.filter(
           flashcard => flashcard.id !== action.payload
         )
       };
